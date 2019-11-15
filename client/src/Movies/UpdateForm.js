@@ -21,14 +21,10 @@ const UpdateForm = props => {
     //e.persist(); <-- needed??
     //holds value of changed movie property input on form
     let value = e.target.value;
-    if (e.target.name === "id" || "metascore") {
-      value = parseInt(value, 10);
-    } else if (e.target.name === "stars"){
-value = value.split(",");
-console.log("stars array?", value)
-    } else {
-return value
-    }
+     if (e.target.name === "stars") {
+      value = value.split(",");
+      console.log("stars array?", value);
+    } 
     setMovie({
       ...movie,
       [e.target.name]: value
@@ -36,13 +32,20 @@ return value
   };
 
   useEffect(() => {
-    if (props.movies.length > 0) {
-      const newMovie = props.items.find(
-        item => `${item.id}` === props.match.params.id
-      );
-      setMovie(newMovie);
-    }
-  }, [props.items, props.match.params.id]);
+    const id = props.match.params.id;
+    axios.get(`http://localhost:5000/api/movies/${id}`).then(res => {
+      console.log(res.data);
+      setMovie(res.data);
+    });
+  }, []);
+
+  //   useEffect(() => {
+  //       const newMovie = props.items.find(
+  //         item => `${item.id}` === props.match.params.id
+  //       );
+  //       setMovie(newMovie);
+
+  //   }, [props.items, props.match.params.id]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -50,7 +53,6 @@ return value
       .put(`http://localhost:5000/api/movies/${movie.id}`, movie)
       .then(res => {
         console.log("handleSubmit", movie, res.data);
-        props.updateMovies(res.data)
       })
       .catch(err => {
         console.log(err);
@@ -58,44 +60,43 @@ return value
   };
 
   //loading state if we don't have data yet
-  if(props.movies.length === 0){
-      return <h2>Loading movie data...</h2>
-  };
+  if (!movie) {
+    return <h2>Loading movie data...</h2>;
+  }
 
   return (
     <div>
-         <h4>Update Form</h4>
+      <h4>Update Form</h4>
       <form onSubmit={handleSubmit}>
-          <input
-          type='text'
-          name='title'
+        <input
+          type="string"
+          name="title"
           onChange={changeHandler}
-          placeholder='Title'
+          placeholder="Title"
           value={movie.title}
-          />
-          <input
-          type='text'
-          name='director'
+        />
+        <input
+          type="string"
+          name="director"
           onChange={changeHandler}
-          placeholder='Director'
+          placeholder="Director"
           value={movie.director}
-          />
-          <input
-          type='number'
-          name='metascore'
+        />
+        <input
+          type="string"
+          name="metascore"
           onChange={changeHandler}
-          placeholder='Metascore'
+          placeholder="Metascore"
           value={movie.metascore}
-          />
-          <input
-          type='string'
-          name='stars'
+        />
+        <input
+          type="string"
+          name="stars"
           onChange={changeHandler}
-          placeholder='Actors'
+          placeholder="Actors"
           value={movie.stars}
-          />
-          <button>Update</button>
-       
+        />
+        <button>Update</button>
       </form>
     </div>
   );
