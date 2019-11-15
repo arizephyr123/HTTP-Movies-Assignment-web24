@@ -48,20 +48,35 @@ body {
   border: 1px solid grey;
   padding: 5px;
 }
-.save-wrapper {
+.buttons-wrapper {
   position: relative;
   width: 75%;
   margin: 1rem auto;
 }
-.save-button {
+
+.button {
   position: absolute;
-  top: 25px;
-  right: 25px;
   border: 1px solid grey;
   padding: 5px 10px;
   background-color: lightseagreen;
+  width: 60px;
+  text-align: center;
 }
-.save-button:hover {
+.save {
+  top: 25px;
+  right: 25px;
+}
+
+.edit {
+  top: 65px;
+  right: 25px;
+}
+
+.delete {
+  top: 105px;
+  right: 25px;
+}
+.button:hover {
   background-color: green;
   color: white;
 }

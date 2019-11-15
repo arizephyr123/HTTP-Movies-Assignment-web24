@@ -10,11 +10,11 @@ export default class Movie extends React.Component {
   }
 
   componentDidMount() {
-    console.log("CDM", this.props)
+    //console.log("CDM", this.props)
     this.fetchMovie(this.props.match.params.id);
   }
 
-  componentWillReceiveProps(newProps) {
+  componentDidUpdate(newProps) {
     if (this.props.match.params.id !== newProps.match.params.id) {
       this.fetchMovie(newProps.match.params.id);
     }
@@ -32,19 +32,39 @@ export default class Movie extends React.Component {
     addToSavedList(this.state.movie);
   };
 
+  deleteMovie = () => {
+    console.log("deleteMovie", this.state.movie.id)
+axios
+.delete(`http://localhost:5000/api/movies/${this.state.movie.id}`)
+.then(res => {
+  console.log(res.data);
+  alert(`Successfully Deleted ${this.state.movie.title}`);
+;
+this.props.history.push("/");
+})
+.catch(err => {
+  console.log(err);
+  // alert("There was a problem. Please try delete again later.")
+})
+
+  };
+
   render() {
     if (!this.state.movie) {
       return <div>Loading movie information...</div>;
     }
     return (
-      <div className="save-wrapper">
+      <div className="buttons-wrapper">
         <MovieCard movie={this.state.movie} />
-        <div className="save-edit-button" onClick={this.saveMovie}>
+        <button className="save button" onClick={this.saveMovie}>
           Save
-        </div>
-        <div className="save-edit-button" onClick={props => this.props.history.push(`/update-movie/${this.props.match.params.id}`)}>
+        </button>
+        <button className="edit button" onClick={props => this.props.history.push(`/update-movie/${this.props.match.params.id}`)}>
           Edit
-        </div>
+        </button>
+        <button className="delete button" onClick={this.deleteMovie}>
+          Delete
+        </button>
       </div>
     );
   }

@@ -37,7 +37,7 @@ const UpdateForm = props => {
       console.log(res.data);
       setMovie(res.data);
     });
-  }, []);
+  }, [props.match.params.id]);
 
   //   useEffect(() => {
   //       const newMovie = props.items.find(
