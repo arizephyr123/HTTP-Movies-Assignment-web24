@@ -103,18 +103,37 @@ body {
     0 2px 4px rgba(0, 0, 0, 0.24);
   padding: 1rem;
   cursor: pointer;
-  position: relative;
+  /* position: relative; */
   margin: 1rem auto;
-  width: 75%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: stretch;
+  /* justify-self: first baseline; */
 }
 
 input {
+  justify-self: center;
   background-color: yellowgreen;
   font-size: 0.8rem;
+  word-wrap: break-word;
+}
+
+label {
+  background-color: yellow;
+  margin: auto 5px;
+}
+
+.stars-input {
+  word-wrap: break-word;
+  background-color: yellowgreen;
+  font-size: 0.8rem;
+  overflow: auto;
+  outline: none;
+  resize: none;
+  width: 150px;
+  height: 150px;
 }
 
 .update-button {

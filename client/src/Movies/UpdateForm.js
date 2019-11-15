@@ -93,7 +93,8 @@ const UpdateForm = props => {
         </div>
         <div>
           <label htmlFor="stars">Stars:</label>
-          <input
+          <textarea
+          wrap="soft" 
             className="stars-input"
             type="string"
             name="stars"
