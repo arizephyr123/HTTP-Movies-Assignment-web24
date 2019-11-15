@@ -16,6 +16,10 @@ body {
   margin: 1rem auto;
 }
 
+.card-title {
+  width: 75%;
+}
+
 .movie-director {
   padding: 4px 0;
   font-size: 0.8rem;
@@ -59,8 +63,9 @@ body {
   border: 1px solid grey;
   padding: 5px 10px;
   background-color: lightseagreen;
-  width: 60px;
+  width: 70px;
   text-align: center;
+  font-size: 0.8rem;
 }
 .save {
   top: 25px;
@@ -89,4 +94,38 @@ body {
 .movie-warning {
   color: red;
   text-align: center;
+}
+
+.update-form {
+  background-color: #fff;
+  border: 0;
+  box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, 0.12),
+    0 2px 4px rgba(0, 0, 0, 0.24);
+  padding: 1rem;
+  cursor: pointer;
+  position: relative;
+  margin: 1rem auto;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+input {
+  background-color: yellowgreen;
+  font-size: 0.8rem;
+}
+
+.update-button {
+  border: 1px solid grey;
+  padding: 5px 10px;
+  background-color: lightseagreen;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.update-button:hover {
+  background-color: green;
+  color: white;
 }

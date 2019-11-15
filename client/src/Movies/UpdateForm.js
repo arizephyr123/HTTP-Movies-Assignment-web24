@@ -21,10 +21,10 @@ const UpdateForm = props => {
     //e.persist(); <-- needed??
     //holds value of changed movie property input on form
     let value = e.target.value;
-     if (e.target.name === "stars") {
+    if (e.target.name === "stars") {
       value = value.split(",");
       console.log("stars array?", value);
-    } 
+    }
     setMovie({
       ...movie,
       [e.target.name]: value
@@ -39,20 +39,13 @@ const UpdateForm = props => {
     });
   }, [props.match.params.id]);
 
-  //   useEffect(() => {
-  //       const newMovie = props.items.find(
-  //         item => `${item.id}` === props.match.params.id
-  //       );
-  //       setMovie(newMovie);
-
-  //   }, [props.items, props.match.params.id]);
-
   const handleSubmit = e => {
     e.preventDefault();
     axios
       .put(`http://localhost:5000/api/movies/${movie.id}`, movie)
       .then(res => {
         console.log("handleSubmit", movie, res.data);
+        props.history.push(`/movies/${movie.id}`);
       })
       .catch(err => {
         console.log(err);
@@ -66,37 +59,50 @@ const UpdateForm = props => {
 
   return (
     <div>
-      <h4>Update Form</h4>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="string"
-          name="title"
-          onChange={changeHandler}
-          placeholder="Title"
-          value={movie.title}
-        />
-        <input
-          type="string"
-          name="director"
-          onChange={changeHandler}
-          placeholder="Director"
-          value={movie.director}
-        />
-        <input
-          type="string"
-          name="metascore"
-          onChange={changeHandler}
-          placeholder="Metascore"
-          value={movie.metascore}
-        />
-        <input
-          type="string"
-          name="stars"
-          onChange={changeHandler}
-          placeholder="Actors"
-          value={movie.stars}
-        />
-        <button>Update</button>
+      <form className="update-form" onSubmit={handleSubmit}>
+        <h4>Update Form</h4>
+        <div>
+          <label htmlFor="title">Title:</label>
+          <input
+            type="string"
+            name="title"
+            onChange={changeHandler}
+            placeholder="Title"
+            value={movie.title}
+          />
+        </div>
+        <div>
+          <label htmlFor="director">Director:</label>
+          <input
+            type="string"
+            name="director"
+            onChange={changeHandler}
+            placeholder="Director"
+            value={movie.director}
+          />
+        </div>
+        <div>
+          <label htmlFor="metascore">Metascore:</label>
+          <input
+            type="string"
+            name="metascore"
+            onChange={changeHandler}
+            placeholder="Metascore"
+            value={movie.metascore}
+          />
+        </div>
+        <div>
+          <label htmlFor="stars">Stars:</label>
+          <input
+            className="stars-input"
+            type="string"
+            name="stars"
+            onChange={changeHandler}
+            placeholder="Actors"
+            value={movie.stars}
+          />
+        </div>
+        <button className="update-button">Update</button>
       </form>
     </div>
   );
